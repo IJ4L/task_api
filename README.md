@@ -1,2 +1,2 @@
 # task_api
-go go go
+go gin gorm
