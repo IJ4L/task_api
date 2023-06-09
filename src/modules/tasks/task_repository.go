@@ -27,7 +27,7 @@ func (repo *TaskRepositoryImpl) GetAll() []Task {
 func (repo *TaskRepositoryImpl) GetOne(id int) Task {
 	var task Task
 
-	_ = repo.db.Model(&task).Preload("User").First(&task).Error
+	_ = repo.db.Find(&task, id).Error
 
 	return task
 }
