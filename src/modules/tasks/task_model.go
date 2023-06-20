@@ -5,4 +5,5 @@ type Task struct {
 	Task   string `json:"name_task" gorm:"type:varchar(255)"`
 	Time   string `json:"time" gorm:"type:varchar(40)"`
 	UserID uint   `json:"user_id"`
+	Status bool   `json:"status" validate:"required"`
 }

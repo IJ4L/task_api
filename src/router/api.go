@@ -31,6 +31,8 @@ func Api(router *gin.Engine, db *gorm.DB) {
 		v1.GET("/tasks", taskController.Index)
 		v1.GET("/tasks/:id", taskController.Show)
 		v1.POST("/tasks", taskController.Create)
+		v1.PUT("/tasks/update/:id", taskController.Update)
+		v1.DELETE("/tasks/delete/:id", taskController.Delete)
 	}
 
 }

@@ -31,8 +31,8 @@ func (controller *taskController) Show(ctx *gin.Context) {
 	data := controller.taskService.GetById(id)
 
 	ctx.JSON(http.StatusOK, gin.H{
-		"message": "ok",
 		"data":    data,
+		"message": "ok",
 	})
 }
 
@@ -50,7 +50,42 @@ func (controller *taskController) Create(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
-		"message": "ok",
 		"data":    data,
+		"message": "ok",
 	})
+}
+
+func (controller *taskController) Update(ctx *gin.Context) {
+	data, err := controller.taskService.Update(ctx)
+
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"message": err.Error(),
+			"data":    data,
+		})
+		ctx.Abort()
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "Berhasil Diperbarui",
+	})
+}
+
+func (controller *taskController) Delete(ctx *gin.Context) {
+	data, err := controller.taskService.Delete(ctx)
+
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{
+			"message": err.Error(),
+			"data":    data,
+		})
+		ctx.Abort()
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "Berhasil Dihapus",
+	})
+
 }

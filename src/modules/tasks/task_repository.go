@@ -6,6 +6,8 @@ type TaskRepository interface {
 	GetAll() []Task
 	GetOne(id int) Task
 	Create(task Task) (*Task, error)
+	Update(task Task) (*Task, error)
+	Delete(task Task) (*Task, error)
 }
 
 type TaskRepositoryImpl struct {
@@ -34,6 +36,26 @@ func (repo *TaskRepositoryImpl) GetOne(id int) Task {
 
 func (repo *TaskRepositoryImpl) Create(task Task) (*Task, error) {
 	result := repo.db.Create(&task)
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return &task, nil
+}
+
+func (repo *TaskRepositoryImpl) Update(task Task) (*Task, error) {
+	result := repo.db.Model(&Task{}).Where("id = ?", task.ID).Updates(&task)
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return &task, nil
+}
+
+func (repo *TaskRepositoryImpl) Delete(task Task) (*Task, error) {
+	result := repo.db.Delete(&task)
 
 	if result.Error != nil {
 		return nil, result.Error

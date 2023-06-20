@@ -4,6 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"taskManagement.com/src/config"
 	"taskManagement.com/src/router"
+
+	t "taskManagement.com/src/modules/tasks"
+	u "taskManagement.com/src/modules/users"
 )
 
 func main() {
@@ -12,7 +15,7 @@ func main() {
 
 	db := config.DB()
 
-	// db.AutoMigrate(&u.User{}, &t.Task{})
+	db.AutoMigrate(&u.User{}, &t.Task{})
 
 	router.Api(r, db)
 
